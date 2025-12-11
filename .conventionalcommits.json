@@ -1,0 +1,111 @@
+{
+  "types": {
+    "build": {
+      "description": "Changes which affect the build system or external dependencies",
+      "scopes": {
+        "composer": {
+          "description": "Composer related changes"
+        },
+        "node": {
+          "description": "node related changes"
+        },
+        "docker": {
+          "description": "Docker related changes"
+        }
+      }
+    },
+    "chore": {
+      "description": "Changes which aren't user-facing"
+    },
+    "ci": {
+      "description": "Changes which affect CI configuration files and scripts"
+    },
+    "docs": {
+      "description": "Changes which affect documentation"
+    },
+    "feat": {
+      "description": "Changes which introduce a new feature"
+    },
+    "fix": {
+      "description": "Changes which patch a bug"
+    },
+    "perf": {
+      "description": "Changes which improve performance"
+    },
+    "refactor": {
+      "description": "Changes which neither fix a bug nor add a feature"
+    },
+    "revert": {
+      "description": "Changes which revert a previous commit"
+    },
+    "security": {
+      "description": "Changes which improve security"
+    },
+    "style": {
+      "description": "Changes which don't affect code logic, such as white-spaces, formatting"
+    },
+    "test": {
+      "description": "Changes which add missing tests or correct existing tests"
+    }
+  },
+  "commonScopes": {
+    "plugins": {
+      "description": "Changes inside /wordpress/plugins",
+      "scopes": {
+        "dataimport": {
+          "description": "creativconcept-dataimport plugin"
+        },
+        "gutenberg": {
+          "description": "creativconcept-gutenberg plugin"
+        },
+        "newsletter": {
+          "description": "creativconcept-newsletter plugin"
+        },
+        "poststatus": {
+          "description": "creativconcept-poststatus plugin"
+        },
+        "printarchive": {
+          "description": "creativconcept-printarchive plugin"
+        },
+        "registration": {
+          "description": "creativconcept-registration plugin"
+        },
+        "restapi": {
+          "description": "creativconcept-restapi plugin"
+        }
+      }
+    },
+    "themes": {
+      "description": "Changes inside /wordpress/themes",
+      "scopes": {
+        "bildungswerke": {
+          "description": "bildungswerke theme"
+        }
+      }
+    },
+    "docker": {
+      "description": "Docker configuration and setup"
+    },
+    "config": {
+      "description": "Project configuration files"
+    }
+  },
+  "footerTypes": [
+    {
+      "name": "BREAKING CHANGE",
+      "description": "The commit introduces breaking changes"
+    },
+    {
+      "name": "Closes",
+      "description": "The commit closes issues or pull requests"
+    },
+    {
+      "name": "Co-authored-by",
+      "description": "The commit is co-authored by another person.<br/>For multiple people use one line each"
+    },
+    {
+      "name": "Refs",
+      "description": "The commit references other commits by their hash ID.<br/>For multiple hash IDs use a comma as separator"
+    }
+  ]
+}

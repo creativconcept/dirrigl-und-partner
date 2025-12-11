@@ -1,0 +1,59 @@
+# EditorConfig helps maintain consistent coding styles across different editors and IDEs
+# https://editorconfig.org
+
+root = true
+
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# PHP files (WordPress coding standards)
+[*.php]
+indent_style = tab
+indent_size = 4
+
+# JavaScript and JSON
+[*.{js,json,jsx}]
+indent_style = space
+indent_size = 2
+
+# CSS and SCSS
+[*.{css,scss,sass,less}]
+indent_style = space
+indent_size = 2
+
+# HTML and template files
+[*.{html,twig}]
+indent_style = space
+indent_size = 2
+
+# YAML files
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = false
+indent_style = space
+indent_size = 2
+
+# Package files
+[{package.json,composer.json}]
+indent_style = space
+indent_size = 2
+
+# Docker and CI/CD
+[{Dockerfile,docker-compose.yml,.gitlab-ci.yml}]
+indent_style = space
+indent_size = 2
+
+# Git files
+[.gitignore]
+indent_style = space
+indent_size = 2

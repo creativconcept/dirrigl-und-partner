@@ -1,0 +1,124 @@
+# =============================================================================
+# STRATEGY:
+# - Track: Custom theme (dirrigl), config files, db-dumps/.gitkeep
+# - Ignore: All WordPress core files, plugins, themes (except dirrigl), uploads,
+#   database dumps, vendor, node_modules
+# - Docker: Volume mounts connect git-tracked custom code to WordPress installation
+# =============================================================================
+
+# WordPress Core Files (copied from live, not tracked)
+# -----------------------------------------------------------------------------
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/xmlrpc.php
+/license.txt
+/readme.html
+/liesmich.html
+/index.php
+/.htaccess
+
+# WordPress Content (except tracked custom code)
+# -----------------------------------------------------------------------------
+/wp-content/
+
+# Database
+# -----------------------------------------------------------------------------
+/db_data/
+/mysql_data/
+*.sql
+*.sql.gz
+
+# Database dumps directory (keep structure, ignore contents)
+/db-dumps/*
+!/db-dumps/.gitkeep
+
+# WordPress uploads/assets
+# -----------------------------------------------------------------------------
+/uploads/
+wordpress/uploads/
+
+# WordPress plugins (all ignored)
+# -----------------------------------------------------------------------------
+wordpress/plugins/
+
+# WordPress themes (only track dirrigl)
+# -----------------------------------------------------------------------------
+wordpress/themes/*
+!wordpress/themes/dirrigl/
+!wordpress/themes/index.php
+!wordpress/themes/php.ini
+
+# Docker
+# -----------------------------------------------------------------------------
+.env
+docker-compose.override.yml
+
+# Deployment
+# -----------------------------------------------------------------------------
+.env.deploy
+
+# Node.js
+# -----------------------------------------------------------------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Build directories
+/tailwind/dist/
+/tailwind/node_modules/
+
+# IDEs and editors
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.bak
+
+# OS files
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# PHP
+# -----------------------------------------------------------------------------
+/vendor/
+.php-cs-fixer.cache
+
+# Logs
+# -----------------------------------------------------------------------------
+logs/
+*.log
+*.log.*
+/wp-content/debug.log
+/wp-content/debug-php.log
+
+# WordPress specific (from live installation)
+# -----------------------------------------------------------------------------
+/wp-content/upgrade/
+/wp-content/upgrade-temp-backup/
+/wp-content/cache/
+/wp-content/backups/
+/wp-content/ai1wm-backups/
+/wp-content/updraft/
+
+# Keep these files tracked
+# -----------------------------------------------------------------------------
+!.conventionalcommits.json
+!.editorconfig
+!.env.example
+!.gitignore
+!.php-cs-fixer.php
+!composer.json
+!conventionalcommit.coauthors
+!docker-compose.yml

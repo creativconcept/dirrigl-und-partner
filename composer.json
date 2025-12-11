@@ -1,0 +1,21 @@
+{
+    "name": "ebw/munich",
+    "description": "EBW Munich WordPress Project",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "wp-coding-standards/wpcs": "^3.0"
+    },
+    "scripts": {
+        "cs-fix": "php-cs-fixer fix",
+        "cs-check": "php-cs-fixer fix --dry-run --diff"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

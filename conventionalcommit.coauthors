@@ -1,0 +1,9 @@
+# Co-authors file for git commits
+# Format: alias: Name <email>
+# Usage in commit: Co-authored-by: Name <email>
+#
+# Example:
+# Jemal Khachidze <jkhachidze@creativconcept.de>
+#
+# Add team members below:
+Jemal Khachidze <jkhachidze@creativconcept.de>
