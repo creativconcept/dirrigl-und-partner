@@ -48,7 +48,7 @@ docker-compose exec db bash -c 'MYSQL_PWD="$MYSQL_PASSWORD" mysql -u "$MYSQL_USE
 docker-compose exec wpcli wp user create ccadmin info@creativconcept.de --role=administrator --user_pass=StrongPass123!
 
 # 8. Replace production URLs (adjust domain as needed)
-docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-und-partner.localhost/' --all-tables
+docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-partner.localhost/' --all-tables --skip-columns=guid
 
 # 9. Clear cache
 docker-compose exec wpcli wp cache flush
@@ -58,12 +58,12 @@ docker-compose exec wpcli wp cache flush
 
 | Service | URL |
 |---------|-----|
-| WordPress | http://dirrigl-und-partner.localhost |
-| phpMyAdmin | http://pma.dirrigl-und-partner.localhost |
-| Mailpit | http://mail.dirrigl-und-partner.localhost |
+| WordPress | http://dirrigl-partner.localhost |
+| phpMyAdmin | http://pma.dirrigl-partner.localhost |
+| Mailpit | http://mail.dirrigl-partner.localhost |
 | WP-CLI | `docker-compose exec wpcli wp` |
 
-**Login:** http://dirrigl-und-partner.localhost/wp-admin with `ccadmin` / `StrongPass123!`
+**Login:** http://dirrigl-partner.localhost/wp-admin with `ccadmin` / `StrongPass123!`
 
 ## Project Structure
 
@@ -73,6 +73,7 @@ docker-compose exec wpcli wp cache flush
 │   ├── themes/
 │   │   └── dirrigl/          # Custom theme (tracked)
 │   ├── plugins/              # All plugins (NOT tracked)
+│   ├── mu-plugins/           # Must-use plugins (NOT tracked, local dev only)
 │   └── uploads/              # Media uploads (NOT tracked)
 ├── db-dumps/
 │   └── .gitkeep              # Database dumps (NOT tracked)
@@ -117,14 +118,14 @@ docker-compose exec wpcli wp cache flush
 
 1. Edit files in `wordpress/themes/dirrigl/`
 2. Changes appear immediately (Docker volume mount)
-3. Test at http://dirrigl-und-partner.localhost
+3. Test at http://dirrigl-partner.localhost
 4. Commit following [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Troubleshooting
 
 **WordPress redirects to live site:**
 ```bash
-docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-und-partner.localhost/' --all-tables
+docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-partner.localhost/' --all-tables --skip-columns=guid
 ```
 
 **Reset everything:**
