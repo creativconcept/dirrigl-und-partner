@@ -1,7 +1,7 @@
 services:
   wordpress:
     image: wordpress:latest
-    container_name: ${PROJECT_NAME:-dirrigl-und-partner}-wordpress
+    container_name: ${PROJECT_NAME:-dirrigl-partner}-wordpress
     restart: unless-stopped
     environment:
       WORDPRESS_DB_HOST: db:3306
@@ -9,16 +9,24 @@ services:
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wordpress}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-true}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-TEyQzlMM}
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_DEBUG', ${WORDPRESS_DEBUG:-true});
         define('WP_DEBUG_LOG', ${WORDPRESS_DEBUG:-true});
         define('WP_DEBUG_DISPLAY', false);
         define('SCRIPT_DEBUG', ${WORDPRESS_DEBUG:-true});
-        define('WP_HOME', '${WP_URL:-http://dirrigl-und-partner.localhost}');
-        define('WP_SITEURL', '${WP_URL:-http://dirrigl-und-partner.localhost}');
+        define('WP_HOME', '${WP_URL:-http://dirrigl-partner.localhost}');
+        define('WP_SITEURL', '${WP_URL:-http://dirrigl-partner.localhost}');
+        define('WPMS_ON', true);
+        define('WPMS_SMTP_HOST', 'mailpit');
+        define('WPMS_SMTP_PORT', 1025);
+        define('WPMS_SMTP_AUTH', false);
+        define('WPMS_SSL', '');
+        define('WPMS_MAILER', 'smtp');
     volumes:
       - wordpress_data:/var/www/html
       - ./wordpress/plugins:/var/www/html/wp-content/plugins
+      - ./wordpress/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./wordpress/themes/dirrigl:/var/www/html/wp-content/themes/dirrigl
       - ./wordpress/uploads:/var/www/html/wp-content/uploads
     depends_on:
@@ -29,18 +37,19 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-und-partner}.rule=Host(`${PROJECT_DOMAIN:-dirrigl-und-partner.localhost}`)"
-      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-und-partner}.entrypoints=web"
-      - "traefik.http.services.${PROJECT_NAME:-dirrigl-und-partner}.loadbalancer.server.port=80"
+      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-partner}.rule=Host(`${PROJECT_DOMAIN:-dirrigl-partner.localhost}`)"
+      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-partner}.entrypoints=web"
+      - "traefik.http.services.${PROJECT_NAME:-dirrigl-partner}.loadbalancer.server.port=80"
       - "traefik.docker.network=proxy"
 
   wpcli:
     image: wordpress:cli
-    container_name: ${PROJECT_NAME:-dirrigl-und-partner}-wpcli
+    container_name: ${PROJECT_NAME:-dirrigl-partner}-wpcli
     user: "33:33"
     volumes:
       - wordpress_data:/var/www/html
       - ./wordpress/plugins:/var/www/html/wp-content/plugins
+      - ./wordpress/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./wordpress/themes/dirrigl:/var/www/html/wp-content/themes/dirrigl
       - ./wordpress/uploads:/var/www/html/wp-content/uploads
       - ./db-dumps:/db-dumps
@@ -49,6 +58,7 @@ services:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wordpress}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-TEyQzlMM}
     depends_on:
       db:
         condition: service_healthy
@@ -60,7 +70,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: ${PROJECT_NAME:-dirrigl-und-partner}-mysql
+    container_name: ${PROJECT_NAME:-dirrigl-partner}-mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
@@ -80,7 +90,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:latest
-    container_name: ${PROJECT_NAME:-dirrigl-und-partner}-phpmyadmin
+    container_name: ${PROJECT_NAME:-dirrigl-partner}-phpmyadmin
     restart: unless-stopped
     environment:
       PMA_HOST: db
@@ -93,23 +103,23 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-und-partner}-pma.rule=Host(`pma.${PROJECT_DOMAIN:-dirrigl-und-partner.localhost}`)"
-      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-und-partner}-pma.entrypoints=web"
-      - "traefik.http.services.${PROJECT_NAME:-dirrigl-und-partner}-pma.loadbalancer.server.port=80"
+      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-partner}-pma.rule=Host(`pma.${PROJECT_DOMAIN:-dirrigl-partner.localhost}`)"
+      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-partner}-pma.entrypoints=web"
+      - "traefik.http.services.${PROJECT_NAME:-dirrigl-partner}-pma.loadbalancer.server.port=80"
       - "traefik.docker.network=proxy"
 
   mailpit:
     image: axllent/mailpit:latest
-    container_name: ${PROJECT_NAME:-dirrigl-und-partner}-mailpit
+    container_name: ${PROJECT_NAME:-dirrigl-partner}-mailpit
     restart: unless-stopped
     networks:
       - internal
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-und-partner}-mail.rule=Host(`mail.${PROJECT_DOMAIN:-dirrigl-und-partner.localhost}`)"
-      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-und-partner}-mail.entrypoints=web"
-      - "traefik.http.services.${PROJECT_NAME:-dirrigl-und-partner}-mail.loadbalancer.server.port=8025"
+      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-partner}-mail.rule=Host(`mail.${PROJECT_DOMAIN:-dirrigl-partner.localhost}`)"
+      - "traefik.http.routers.${PROJECT_NAME:-dirrigl-partner}-mail.entrypoints=web"
+      - "traefik.http.services.${PROJECT_NAME:-dirrigl-partner}-mail.loadbalancer.server.port=8025"
       - "traefik.docker.network=proxy"
 
 volumes:
