@@ -33,6 +33,10 @@
 /db-dumps/*
 !/db-dumps/.gitkeep
 
+# WordPress mu-plugins (local dev only)
+# -----------------------------------------------------------------------------
+wordpress/mu-plugins/
+
 # WordPress uploads/assets
 # -----------------------------------------------------------------------------
 /uploads/
