@@ -30,7 +30,7 @@ docker-compose exec db bash -c 'MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -u root "
 # Setup
 docker-compose exec wpcli wp plugin activate --all
 docker-compose exec wpcli wp user create ccadmin info@creativconcept.de --role=administrator --user_pass=StrongPass123!
-docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-und-partner.localhost/' --all-tables
+docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-partner.localhost/' --skip-columns=guid --all-tables
 docker-compose exec wpcli wp cache flush
 ```
 
@@ -118,7 +118,7 @@ Project uses `.editorconfig` for consistent formatting:
 ## Testing
 
 1. Edit files in `wordpress/themes/dirrigl/`
-2. Changes appear immediately at http://dirrigl-und-partner.localhost
+2. Changes appear immediately at http://dirrigl-partner.localhost
 3. Check browser console for JS errors
 4. View debug log: `docker-compose exec wordpress tail -f /var/www/html/wp-content/debug.log`
 
@@ -169,7 +169,7 @@ docker-compose exec db bash -c 'MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -u root "
 
 # Reconfigure
 docker-compose exec wpcli wp plugin activate --all
-docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-und-partner.localhost/' --all-tables
+docker-compose exec wpcli wp search-replace 'https://dirrigl-und-partner.de/' 'http://dirrigl-partner.localhost/' --skip-columns=guid --all-tables
 docker-compose exec wpcli wp cache flush
 ```
 
